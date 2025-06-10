@@ -227,7 +227,6 @@ GameObject:
   - component: {fileID: 7056258386917989326}
   - component: {fileID: -8082994652517624103}
   - component: {fileID: -3195399730691094693}
-  - component: {fileID: -8916797510237105899}
   - component: {fileID: 3724713485739377817}
   m_Layer: 0
   m_Name: collectable 2
@@ -338,33 +337,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &-8916797510237105899
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243492797828123143}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &3724713485739377817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10032fc2d148b634eb96642246f22c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
+  DinosaurValue: 1
 --- !u!1 &1352997903178779999
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,12 @@
 using UnityEngine;
-using System;
 
-
-public class collectable : MonoBehaviour
+public class Collectable : MonoBehaviour
 {
     // Coin value that will be added to the player's score
     [SerializeField]
     int DinosaurValue = 1;
+
+    
     
     // Method to collect the dinosaur
     // This method will be called when the player interacts with the dinosaur
@@ -16,8 +16,8 @@ public class collectable : MonoBehaviour
     public void Collect(PlayerBehaviour player)
     {
         // Logic for collecting the dinosaur
-        Debug.Log("Dinosaur collected!");
-        
+        Debug.Log("Dinosaur retrieved!");
+
         // Add the coin value to the player's score
         // This is done by calling the ModifyScore method on the player object
         // The dinosaurValue is passed as an argument to the method

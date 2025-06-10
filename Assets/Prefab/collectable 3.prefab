@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2722458053835890108}
   - component: {fileID: 335906593600478408}
   - component: {fileID: 36253308616771168}
-  - component: {fileID: 2765547694435670611}
   - component: {fileID: -6009574733302990608}
   - component: {fileID: -3443602497746160903}
   m_Layer: 0
@@ -99,33 +98,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &2765547694435670611
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256462029253456232}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!135 &-6009574733302990608
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -159,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10032fc2d148b634eb96642246f22c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
+  DinosaurValue: 1
 --- !u!1 &731120191700207961
 GameObject:
   m_ObjectHideFlags: 0
