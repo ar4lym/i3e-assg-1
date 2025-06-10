@@ -38,7 +38,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // Check if the player can interact with objects
         if (canInteract)
-        { 
+        {
             if (currentDinosaur != null)
             {
                 Debug.Log("Dinosaur retrieved");
@@ -53,8 +53,10 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // Increase currentScore by the amount passed as an argument
         currentScore += amt;
-    }
 
+        // Update UIManager to reflect the new score
+        UIManager.instance.ModifyScore(currentScore);
+    }
 
     void OnFire()
     {
@@ -62,8 +64,8 @@ public class PlayerBehaviour : MonoBehaviour
         Vector3 fireForce = spawnPoint.forward * fireStrength;
         newProjectile.GetComponent<Rigidbody>().AddForce(fireForce);
     }
-    
-   
+
+
 
     // Trigger Callback for when the player exits a trigger collider
     void OnTriggerExit(Collider other)
@@ -82,4 +84,4 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-}
+    
