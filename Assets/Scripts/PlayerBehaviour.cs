@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 public class PlayerBehaviour : MonoBehaviour
 {
 
@@ -21,6 +22,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     // The Interact callback for the Interact Input Action
     // This method is called when the player presses the interact button
+    int maxHealth = 100;
+    public int currentHealth = 100; 
+    // Player's health
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -42,7 +47,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (currentDinosaur != null)
             {
                 Debug.Log("Dinosaur retrieved");
-                // Call the Collect method on the coin object
+                // Call the Collect method on the dinosaur object
                 // Pass the player object as an argument
                 currentDinosaur.Collect(this);
             }
@@ -84,4 +89,114 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-    
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Debug.Log("Player took damage! Current health: " + currentHealth);
+
+        // ✅ Update UI when health changes
+        UIManager.instance.UpdateHealthUI(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player has died!");
+            // Add death logic here (e.g., respawn, game over screen)
+        }
+    }
+
+
+    public void ModifyHealth(int amount)
+    {
+        // Check if the current health is less than the maximum health
+        // If it is, increase the current health by the amount passed as an argument
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += amount;
+            // Check if the current health exceeds the maximum health
+            // If it does, set the current health to the maximum health
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+    }
+    // raycast
+    private PlayerInput playerInput; // Reference to PlayerInput
+    private InputAction raycastAction; // Reference to Raycast action
+
+    [SerializeField] private float raycastRange = 5f;
+    [SerializeField] private LayerMask collectableLayer;
+
+    private LineRenderer lineRenderer;
+
+    void Start()
+    {
+       
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2; // Start and end points
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Simple visible shader
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+        UIManager.instance.SetInitialHealth(currentHealth); // ✅ Sync UI with player healt
+    }
+    void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>(); // Get PlayerInput component
+        if (playerInput != null)
+        {
+            raycastAction = playerInput.actions["Raycast"]; // Get the "Raycast" action
+        }
+        else
+        {
+            Debug.LogError("PlayerInput component is missing!");
+        }
+    }
+
+    void OnEnable()
+    {
+        if (raycastAction != null)
+        {
+            raycastAction.Enable();
+            raycastAction.performed += ctx => PerformRaycast();
+        }
+    }
+
+    void OnDisable()
+    {
+        if (raycastAction != null)
+        {
+            raycastAction.Disable();
+        }
+    }
+
+    void PerformRaycast()
+    {
+        // ✅ Get the camera's position and direction
+        Vector3 rayOrigin = Camera.main.transform.position;
+        Vector3 rayDirection = Camera.main.transform.forward;
+
+        RaycastHit hit;
+
+        // ✅ Draw the ray in the Scene view for debugging
+        Debug.DrawRay(rayOrigin, rayDirection * raycastRange, Color.red, 2f);
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, raycastRange, collectableLayer))
+        {
+            Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
+
+            Collectable collectable = hit.collider.GetComponent<Collectable>();
+            if (collectable != null)
+            {
+                Debug.Log("Dinosaur collected!");
+                collectable.Collect(this);
+            }
+        }
+        else
+        {
+            Debug.Log("Raycast did not hit anything.");
+        }
+    }
+}
