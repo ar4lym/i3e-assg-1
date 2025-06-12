@@ -25,7 +25,7 @@ public class PlayerBehaviour : MonoBehaviour
     int maxHealth = 100;
     public int currentHealth = 100; 
     // Player's health
-
+    public Transform respawnPoint; 
 
     void OnTriggerEnter(Collider other)
     {
@@ -90,18 +90,26 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    
+
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
         Debug.Log("Player took damage! Current health: " + currentHealth);
 
-        // ✅ Update UI when health changes
-        UIManager.instance.UpdateHealthUI(currentHealth);
+        if (UIManager.instance != null)
+        {
+            UIManager.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
+        }
+        else
+        {
+            Debug.LogError("UIManager instance is null! Cannot update health UI.");
+        }
 
         if (currentHealth <= 0)
         {
             Debug.Log("Player has died!");
-            // Add death logic here (e.g., respawn, game over screen)
+            InstantRespawn(); // ✅ Respawn player
         }
     }
 
@@ -121,6 +129,27 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
+
+    public void InstantDeath()
+    {
+        Debug.Log("Player has died instantly!");
+        currentHealth = 0; // ✅ Set health to 0
+        UIManager.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
+
+        InstantRespawn(); // ✅ Respawn player immediately
+    }
+
+    public void InstantRespawn()
+    {
+        Debug.Log("Respawning player...");
+        currentHealth = maxHealth; // ✅ Restore health
+        UIManager.instance.UpdateHealthUI(currentHealth);
+        transform.position = respawnPoint.position; // ✅ Move player to respawn point
+    }
+
+
+   
+
     // raycast
     private PlayerInput playerInput; // Reference to PlayerInput
     private InputAction raycastAction; // Reference to Raycast action
@@ -132,7 +161,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-       
+         UIManager.instance.SetInitialHealth(currentHealth); // ✅ Sync UI with player healt
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2; // Start and end points
         lineRenderer.startWidth = 0.05f;
@@ -140,7 +169,6 @@ public class PlayerBehaviour : MonoBehaviour
         lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Simple visible shader
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
-        UIManager.instance.SetInitialHealth(currentHealth); // ✅ Sync UI with player healt
     }
     void Awake()
     {
