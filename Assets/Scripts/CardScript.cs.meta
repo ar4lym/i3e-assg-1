@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 871e9466e83b035428ca68cfe6d2e4fc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - doorCollider: {instanceID: 0}
+  - redoorCollider: {fileID: 4353470978760469405, guid: 1b114ed8f95f7c14c998ac2a1133e08f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

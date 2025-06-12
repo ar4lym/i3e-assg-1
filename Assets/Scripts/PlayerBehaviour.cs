@@ -22,10 +22,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     // The Interact callback for the Interact Input Action
     // This method is called when the player presses the interact button
-    int maxHealth = 100;
+    public int maxHealth = 100;
     public int currentHealth = 100; 
     // Player's health
     public Transform respawnPoint; 
+
+    public Animator doorAnimation;
+    public bool isCollected;
+    public bool redCollected;
 
     void OnTriggerEnter(Collider other)
     {
@@ -38,7 +42,32 @@ public class PlayerBehaviour : MonoBehaviour
             canInteract = true;
             currentDinosaur = other.GetComponent<Collectable>();
         }
+        // purple
+        if (other.gameObject.tag == "doorCollider")
+        {
+            isCollected = true;
+            doorAnimation.SetBool("isCollected", isCollected);
+        }
+        if (other.gameObject.tag == "Closedoor")
+        {
+            isCollected = false;
+            doorAnimation.SetBool("isCollected", isCollected);
+        }
+        
+        // red
+        if (other.gameObject.tag == "redoorCollider")
+        {
+            bool redCollected = true;
+            doorAnimation.SetBool("redCollected", redCollected);
+        }
+        if (other.gameObject.tag == "Closedoor")
+        {
+            redCollected = false;
+            doorAnimation.SetBool("redCollected", redCollected);
+        }
+
     }
+   
     void OnInteract()
     {
         // Check if the player can interact with objects
@@ -161,7 +190,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-         UIManager.instance.SetInitialHealth(currentHealth); // ✅ Sync UI with player healt
+        
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2; // Start and end points
         lineRenderer.startWidth = 0.05f;
@@ -181,6 +210,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Debug.LogError("PlayerInput component is missing!");
         }
+        isCollected = false;
+        redCollected = false;
     }
 
     void OnEnable()
@@ -202,13 +233,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     void PerformRaycast()
     {
-        // ✅ Get the camera's position and direction
         Vector3 rayOrigin = Camera.main.transform.position;
         Vector3 rayDirection = Camera.main.transform.forward;
 
         RaycastHit hit;
-
-        // ✅ Draw the ray in the Scene view for debugging
         Debug.DrawRay(rayOrigin, rayDirection * raycastRange, Color.red, 2f);
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, raycastRange, collectableLayer))
@@ -218,6 +246,7 @@ public class PlayerBehaviour : MonoBehaviour
             Collectable collectable = hit.collider.GetComponent<Collectable>();
             if (collectable != null)
             {
+                collectable.Highlight(); // Apply highlight effect first
                 Debug.Log("Dinosaur collected!");
                 collectable.Collect(this);
             }
@@ -227,4 +256,5 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.Log("Raycast did not hit anything.");
         }
     }
+
 }

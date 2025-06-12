@@ -1,31 +1,28 @@
 using UnityEngine;
 
-public class CardScript : MonoBehaviour
+public class RedCard : MonoBehaviour
 {
-    public GameObject doorCollider;
-    
+    public GameObject redoorCollider;
 
     void Start()
     {
-        if (doorCollider != null)
+        if (redoorCollider != null)
         {
-            doorCollider.SetActive(false);
+            redoorCollider.SetActive(false);
         }
         else
         {
-            Debug.LogError("⚠️ doorCollider is NOT assigned! Please assign it in the Inspector.");
+            Debug.LogError("⚠️ redoorCollider is NOT assigned! Please assign it in the Inspector.");
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Something entered the card trigger: " + other.gameObject.name); // ✅ Debugging
-
         if (other.CompareTag("Player"))
         {
             Debug.Log("✅ Player collected the card!");
-            doorCollider.SetActive(true);
+            redoorCollider.SetActive(true);
             Destroy(gameObject);
         }
         else

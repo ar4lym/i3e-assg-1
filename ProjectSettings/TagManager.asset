@@ -8,6 +8,8 @@ TagManager:
   - collectable
   - CinemachineTarget
   - doorCollider
+  - Closedoor
+  - redoorCollider
   layers:
   - Default
   - TransparentFX
