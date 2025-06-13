@@ -57,7 +57,7 @@ public class PlayerBehaviour : MonoBehaviour
         // red
         if (other.gameObject.tag == "redoorCollider")
         {
-            bool redCollected = true;
+            redCollected = true;
             doorAnimation.SetBool("redCollected", redCollected);
         }
         if (other.gameObject.tag == "Closedoor")
@@ -126,13 +126,13 @@ public class PlayerBehaviour : MonoBehaviour
         currentHealth -= damageAmount;
         Debug.Log("Player took damage! Current health: " + currentHealth);
 
-        if (UIManager.instance != null)
+        if (HealthUI.instance != null)
         {
-            UIManager.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
+            HealthUI.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
         }
         else
         {
-            Debug.LogError("UIManager instance is null! Cannot update health UI.");
+            Debug.LogError("HealthUI instance is null! Cannot update health UI.");
         }
 
         if (currentHealth <= 0)
@@ -145,25 +145,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ModifyHealth(int amount)
     {
-        // Check if the current health is less than the maximum health
-        // If it is, increase the current health by the amount passed as an argument
         if (currentHealth < maxHealth)
         {
             currentHealth += amount;
-            // Check if the current health exceeds the maximum health
-            // If it does, set the current health to the maximum health
             if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
             }
+            HealthUI.instance.UpdateHealthUI(currentHealth); // ✅ Update UI after healing
         }
     }
+
 
     public void InstantDeath()
     {
         Debug.Log("Player has died instantly!");
         currentHealth = 0; // ✅ Set health to 0
-        UIManager.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
+        HealthUI.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
 
         InstantRespawn(); // ✅ Respawn player immediately
     }
@@ -172,7 +170,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Debug.Log("Respawning player...");
         currentHealth = maxHealth; // ✅ Restore health
-        UIManager.instance.UpdateHealthUI(currentHealth);
+        HealthUI.instance.UpdateHealthUI(currentHealth);
         transform.position = respawnPoint.position; // ✅ Move player to respawn point
     }
 

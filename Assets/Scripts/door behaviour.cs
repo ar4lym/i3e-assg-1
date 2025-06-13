@@ -2,20 +2,41 @@ using UnityEngine;
 
 public class DoorBehaviour : MonoBehaviour
 {
-    public void Interact()
+    public Animator doorAnimation;
+    public bool isCollected;
+    public bool redCollected;
+
+    void OnTriggerEnter(Collider other)
     {
-        Vector3 DoorRotation = transform.rotation.eulerAngles;
-        if (DoorRotation.y == 0f)
+        // purple
+        if (other.gameObject.tag == "doorCollider")
         {
-            // If the door is closed, open it
-            DoorRotation.y += 90f; // Set to 90 degrees to open the door
-            transform.eulerAngles = DoorRotation;
+            isCollected = true;
+            doorAnimation.SetBool("isCollected", isCollected);
         }
-        else 
+        if (other.gameObject.tag == "Closedoor")
         {
-            
-            DoorRotation.y = 0f; 
-            transform.eulerAngles = DoorRotation;
+            isCollected = false;
+            doorAnimation.SetBool("isCollected", isCollected);
         }
+        
+        // red
+        if (other.gameObject.tag == "redoorCollider")
+        {
+            bool redCollected = true;
+            doorAnimation.SetBool("redCollected", redCollected);
+        }
+        if (other.gameObject.tag == "Closedoor")
+        {
+            redCollected = false;
+            doorAnimation.SetBool("redCollected", redCollected);
+        }
+
+    }
+    void Awake()
+    {
+        
+        isCollected = false;
+        redCollected = false;
     }
 }

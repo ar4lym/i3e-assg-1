@@ -4,8 +4,8 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    public TMP_Text Health;
-    public TMP_Text dinoretrieved;
+    public TextMeshProUGUI Health;
+    public TextMeshProUGUI dinoretrieved;
 
     public int currentScore = 0;
 
