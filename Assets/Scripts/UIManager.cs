@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    public TextMeshProUGUI Health;
+    
     public TextMeshProUGUI dinoretrieved;
 
     public int currentScore = 0;
@@ -17,10 +18,6 @@ public class UIManager : MonoBehaviour
         }
         
 
-        if (Health == null)
-        {
-            Debug.LogError("Health UI Text is missing! Please assign it in the Inspector.");
-        }
 
         if (dinoretrieved == null)
         {
@@ -30,33 +27,23 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        dinoretrieved.text = "Dinosaurs retrieved: " + currentScore.ToString();
-        SetInitialHealth(100); // ✅ Set health to 100 when the game starts
+        dinoretrieved.text = "Dinosaurs retrieved: " + currentScore.ToString() + "/15";
+        
     }
 
     public void ModifyScore(int v)
     {
         currentScore++;
-        dinoretrieved.text = "Dinosaurs retrieved: " + currentScore.ToString();
-    }
+        dinoretrieved.text = "Dinosaurs retrieved: " + currentScore.ToString() + "/15";
 
-    public void SetInitialHealth(int health)
-    {
-        if (Health != null)
+        if (currentScore == 15)
         {
-            Health.text = "Health: " + health.ToString(); // ✅ Display 100 at the start
+            Debug.Log("✅ All collectibles gathered! Loading end scene...");
+            SceneManager.LoadScene(3); // Replace "EndScene" with your actual scene name
         }
     }
 
-    public void UpdateHealthUI(int health)
-    {
-        if (Health != null)
-        {
-            Health.text = "Health: " + health.ToString(); // ✅ Update UI when health changes
-        }
-        else
-        {
-            Debug.LogError("Health UI Text is missing!");
-        }
-    }
+ 
 }
+
+    

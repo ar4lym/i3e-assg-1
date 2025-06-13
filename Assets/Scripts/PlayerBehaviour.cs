@@ -162,7 +162,6 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("Player has died instantly!");
         currentHealth = 0; // ✅ Set health to 0
         HealthUI.instance.UpdateHealthUI(currentHealth); // ✅ Update UI
-
         InstantRespawn(); // ✅ Respawn player immediately
     }
 
@@ -244,7 +243,7 @@ public class PlayerBehaviour : MonoBehaviour
             Collectable collectable = hit.collider.GetComponent<Collectable>();
             if (collectable != null)
             {
-                collectable.Highlight(); // Apply highlight effect first
+                
                 Debug.Log("Dinosaur collected!");
                 collectable.Collect(this);
             }
