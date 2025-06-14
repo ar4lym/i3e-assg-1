@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class BulletBehaviour : MonoBehaviour
 {
-    public void OnCollisionEnter(Collision other);
-    if (other.CompareTag("Untagged"))
+    private void OnCollisionEnter(Collision collision)
     {
-       Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Untagged")) // ✅ Check if object has "Untagged" tag
+        {
+            Debug.Log("Bullet hit an untagged object! Destroying...");
+            Destroy(gameObject); // ✅ Destroy the bullet
+        }
     }
 }
