@@ -22,16 +22,20 @@ instead of pushing the boxes to get to the keycaard that unlocks the door, playe
 Platforms/hardware/desired settings required to run your application
 Platforms my player would require would be a windows operated computer, Unity Hub
 
-Hardware Requirements – The necessary specifications, such as:
-Processor (CPU) – Minimum and recommended speed/type.
-Memory (RAM) – How much RAM is required.
-Graphics (GPU) – If your application needs a dedicated graphics card.
-Storage – The amount of disk space needed.
+- Operating System: Windows 10 (64-bit) or newer
+- Processor (CPU): Quad-core Intel or AMD processor, 2.5 GHz or faster
+- Memory (RAM): At least 8 GB (16 GB or more for large projects or multitasking)
+- Graphics (GPU): Dedicated GPU supporting DirectX 11 or higher (e.g., NVIDIA GTX 960 or AMD Radeon R9 280 and above)
+- Storage: Minimum 20 GB of free disk space (SSD highly recommended for faster asset loading and build times)
 
 Desired settings
-Resolution – Preferred screen resolution.
-Graphics Settings – Low, Medium, High, Ultra settings for games.
-Network Requirements – If an internet connection is needed.
+Resolution
+- Preferred: 1920×1080 (Full HD) is the standard for most games and development.
+Graphic Settings
+Basic lighting and shadows, moderate texture quality — good for mid-range systems.
+Network Requirments 
+No internet needed after installation
+
 
 
 
